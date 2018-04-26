@@ -3,6 +3,11 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @post = posts(:one)
+    @update = {
+      title: 'Lorem ipsum',
+      description: 'Adalah pemain terbaik dunia di saat ini. Atau pada saat ini. Kita tunggu.',
+      image_url: 'https://semuanyabola.com/liga-indonesia.jpg'
+    }
   end
 
   test "should get index" do
@@ -17,7 +22,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create post" do
     assert_difference('Post.count') do
-      post posts_url, params: { post: { description: @post.description, image_url: @post.image_url, title: @post.title } }
+      post posts_url, params: { post: @update }
     end
 
     assert_redirected_to post_url(Post.last)
@@ -34,7 +39,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update post" do
-    patch post_url(@post), params: { post: { description: @post.description, image_url: @post.image_url, title: @post.title } }
+    patch post_url(@post), params: { post: @update }
     assert_redirected_to post_url(@post)
   end
 
